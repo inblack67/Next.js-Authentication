@@ -9,6 +9,7 @@ export default ErrorHandler(
         async (req, res) => {
 
             const { method } = req;
+            const { title, description } = req.body;
 
             switch (method) {
                 case 'GET':
@@ -16,7 +17,8 @@ export default ErrorHandler(
                     return res.status(200).json({ success: true, data: stories });
 
                 case 'POST':
-                    const story = await Story.create(req.body);
+
+                    const story = await Story.create({ title, description, user: req.user._id });
                     return res.status(201).json({ success: true, data: story, msg: 'Story added' });
                 default:
                     return res.status(400).json({ success: false });
