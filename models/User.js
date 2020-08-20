@@ -2,7 +2,7 @@ import { Schema, models, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -41,6 +41,7 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
+
 UserSchema.methods.getSignedJwtToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
@@ -50,6 +51,5 @@ UserSchema.methods.getSignedJwtToken = function () {
 UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
-
 
 export default models.User || model('User', UserSchema);
