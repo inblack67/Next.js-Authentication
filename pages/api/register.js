@@ -1,4 +1,4 @@
-import { connectDB } from '../../src/connectDB';
+import { connectDB, disConnectDB } from '../../src/connectDB';
 import User from '../../models/User';
 import ErrorHandler from '../../middlewares/errorHandler'
 

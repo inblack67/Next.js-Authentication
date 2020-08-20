@@ -1,9 +1,10 @@
 import Story from '../../../models/Story';
-import { connectDB } from '../../../src/connectDB';
+import { connectDB, disConnectDB } from '../../../src/connectDB';
 import ErrorHandler from '../../../middlewares/errorHandler';
 import { protect } from '../../../middlewares/auth';
 
 connectDB();
+
 export default ErrorHandler(
     protect(
         async (req, res) => {
@@ -17,7 +18,6 @@ export default ErrorHandler(
                     return res.status(200).json({ success: true, data: stories });
 
                 case 'POST':
-
                     const story = await Story.create({ title, description, user: req.user._id });
                     return res.status(201).json({ success: true, data: story, msg: 'Story added' });
                 default:

@@ -1,7 +1,7 @@
-import { connect } from 'mongoose';
+import { connect, disconnect } from 'mongoose';
 import 'colors';
 
-export async function connectDB() {
+export const connectDB = async () => {
     try {
         await connect(process.env.MONGO_URI, {
             useCreateIndex: true,
@@ -13,4 +13,9 @@ export async function connectDB() {
     } catch (err) {
         console.error(`${err}`.red.bold)
     }
+}
+
+export const disConnectDB = async () => {
+    await disconnect();
+    console.log(`Mongo is gone`.green.inverse);
 }
