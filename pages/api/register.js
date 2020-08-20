@@ -12,7 +12,7 @@ export default ErrorHandler(
                 const token = user.getSignedJwtToken();
                 return res.status(201).json({ success: true, token });
             default:
-                return res.status(500).json({ success: false, msg: 'Something went wrong' });
+                return res.status(500).json({ success: false });
         }
     }
 

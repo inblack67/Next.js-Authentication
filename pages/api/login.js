@@ -1,6 +1,7 @@
 import { connectDB } from '../../src/connectDB';
 import User from '../../models/User';
 import ErrorHandler from '../../middlewares/errorHandler'
+import { send } from 'micro';
 
 connectDB();
 
@@ -12,13 +13,13 @@ export default ErrorHandler(
         const user = await User.findOne({ email }).select('+password');
 
         if (!user) {
-          return res.status(400).json({ success: false, msg: 'Invalid Credentials' });
+          send(res, 401, { success: false, msg: 'Invalid Credentials' });
         }
 
         const isMatch = await user.matchPassword(password);
 
         if (!isMatch) {
-          return res.status(400).json({ success: false, msg: 'Invalid Credentials' });
+          send(res, 401, { success: false, msg: 'Invalid Credentials' });
         }
 
         const token = user.getSignedJwtToken();
