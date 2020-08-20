@@ -43,6 +43,9 @@ export default ErrorHandler(
                     await Story.findByIdAndDelete(id);
 
                     return res.status(200).json({ success: true, error: 'Story deleted' });
+
+                default:
+                    return res.status(500).json({ success: false });
             }
         }
     )

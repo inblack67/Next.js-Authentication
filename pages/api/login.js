@@ -33,7 +33,10 @@ export default ErrorHandler(
           path: '/'   // root of out domain, not /api
         }))
 
-        return res.status(200).json({ success: true, token });
+        return res.status(200).json({ success: true, msg: 'Logged In' });
+
+      default:
+        return res.status(500).json({ success: false });
     }
   }
 

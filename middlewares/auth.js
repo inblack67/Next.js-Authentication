@@ -19,7 +19,7 @@ export const protect = fn => ErrorHandler(
         }
 
         if (!token) {
-            send(res, 401, { success: false, msg: 'Not Authorized' });
+            return res.status(401).json({ success: false, msg: 'Not Authorized' });
         }
 
         const decoded = verify(token, process.env.JWT_SECRET);

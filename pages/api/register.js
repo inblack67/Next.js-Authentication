@@ -18,7 +18,7 @@ export default ErrorHandler(
                     maxAge: 3600,   // 1 hr
                     path: '/'   // root of out domain, not /api
                 }))
-                return res.status(201).json({ success: true, token });
+                return res.status(201).json({ success: true, msg: 'Registered' });
             default:
                 return res.status(500).json({ success: false });
         }

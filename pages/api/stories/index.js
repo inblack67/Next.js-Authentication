@@ -21,7 +21,7 @@ export default ErrorHandler(
                     const story = await Story.create({ title, description, user: req.user._id });
                     return res.status(201).json({ success: true, data: story, msg: 'Story added' });
                 default:
-                    return res.status(400).json({ success: false });
+                    return res.status(500).json({ success: false });
             }
         }
     )

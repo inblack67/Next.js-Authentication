@@ -47,6 +47,10 @@ const AuthState = ({ children }) => {
         }
     }
 
+    const loadUser = async () => {
+        
+    }
+
     return (
         <AuthContext.Provider
             value={{
