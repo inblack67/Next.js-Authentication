@@ -1,6 +1,7 @@
 import { connectDB } from '../../src/connectDB';
 import User from '../../models/User';
 import ErrorHandler from '../../middlewares/errorHandler';
+import { serialize } from 'cookie';
 
 connectDB();
 
@@ -23,6 +24,15 @@ export default ErrorHandler(
         }
 
         const token = user.getSignedJwtToken();
+
+        res.setHeader('Set-Cookie', serialize('token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          sameSite: 'strict',
+          maxAge: 3600,   // 1 hr
+          path: '/'   // root of out domain, not /api
+        }))
+
         return res.status(200).json({ success: true, token });
     }
   }

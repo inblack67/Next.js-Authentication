@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
+    "cookie": "^0.4.1",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "mongoose": "^5.10.0",
