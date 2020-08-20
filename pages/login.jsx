@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import AuthContext from '../context/auth/authContext';
 
 const Login = () => {
 
@@ -8,14 +8,16 @@ const Login = () => {
 
     const { register, handleSubmit, errors } = useForm({
         defaultValues: {
-            email: 'aman@gmail.com',
-            password: '12345678',
+            email: 'aman1@gmail.com',
+            password: 'Aman123@',
         }
     });
 
+    const { login } = useContext(AuthContext);
+
     const onLogin = formData => {
         setSubmitting(true);
-        console.log(formData);
+        login(formData);
         setSubmitting(false);
     }
 

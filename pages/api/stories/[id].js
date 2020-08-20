@@ -20,29 +20,29 @@ export default ErrorHandler(
                     const putStory = await Story.findById(id);
 
                     if (!putStory) {
-                        return res.status(400).json({ success: false, msg: 'Resource not found' });
+                        return res.status(400).json({ success: false, error: 'Resource not found' });
                     }
 
                     if (putStory.user.toString() !== req.user._id.toString()) {
-                        return res.status(401).json({ success: false, msg: 'Not Authorized' });
+                        return res.status(401).json({ success: false, error: 'Not Authorized' });
                     }
                     const updatedStory = await Story.findByIdAndUpdate(id, req.body, {
                         new: true
                     });
-                    return res.status(200).json({ success: true, data: updatedStory, msg: 'Story updated' });
+                    return res.status(200).json({ success: true, data: updatedStory, error: 'Story updated' });
 
                 case 'DELETE':
                     const delStory = await Story.findById(id);
                     if (!delStory) {
-                        return res.status(400).json({ success: false, msg: 'Resource not found' });
+                        return res.status(400).json({ success: false, error: 'Resource not found' });
                     }
                     if (delStory.user.toString() !== req.user._id.toString()) {
-                        return res.status(401).json({ success: false, msg: 'Not Authorized' });
+                        return res.status(401).json({ success: false, error: 'Not Authorized' });
                     }
 
                     await Story.findByIdAndDelete(id);
 
-                    return res.status(200).json({ success: true, msg: 'Story deleted' });
+                    return res.status(200).json({ success: true, error: 'Story deleted' });
             }
         }
     )

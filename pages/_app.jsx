@@ -1,9 +1,12 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
+import AuthState from '../context/auth/AuthState';
 
 function MyApp({ Component, pageProps }) {
-  return <Layout>
-    <Component {...pageProps} />
-  </Layout>
+  return <AuthState>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  </AuthState>
 }
 
 export default MyApp

@@ -14,13 +14,13 @@ export default ErrorHandler(
 
 
         if (!user) {
-          return res.status(400).json({ success: false, msg: 'Invalid Credentials' });
+          return res.status(400).json({ success: false, error: 'Invalid Credentials' });
         }
 
         const isMatch = await user.matchPassword(password);
 
         if (!isMatch) {
-          return res.status(400).json({ success: false, msg: 'Invalid Credentials' });
+          return res.status(400).json({ success: false, error: 'Invalid Credentials' });
         }
 
         const token = user.getSignedJwtToken();

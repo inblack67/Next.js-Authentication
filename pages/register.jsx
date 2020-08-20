@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AuthContext from '../context/auth/authContext';
 
 const Register = () => {
 
@@ -9,13 +10,15 @@ const Register = () => {
         defaultValues: {
             name: 'Aman',
             email: 'aman@gmail.com',
-            password: '12345678',
+            password: 'Aman123@',
         }
     });
 
+    const { registerUser } = useContext(AuthContext);
+
     const onLogin = formData => {
         setSubmitting(true);
-        console.log(formData);
+        registerUser(formData);
         setSubmitting(false);
     }
 
