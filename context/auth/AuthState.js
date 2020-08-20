@@ -48,7 +48,7 @@ const AuthState = ({ children }) => {
     }
 
     const loadUser = async () => {
-        
+        console.log(document.cookie);
     }
 
     return (
@@ -60,6 +60,7 @@ const AuthState = ({ children }) => {
                 story: state.story,
                 login,
                 registerUser,
+                loadUser,
             }}>
             { children}
         </AuthContext.Provider>

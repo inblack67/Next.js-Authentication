@@ -1,9 +1,23 @@
+import { server } from '../src/server';
+import customAxios from '../src/customAxios'
 
+export default function Home({ stories }) {
 
-export default function Home() {
   return (
     <div className='container'>
-      <h1>Welcome</h1>
+      <h3>Stories</h3>
+      { JSON.stringify(stories, null, 3) }
     </div>
   )
+}
+
+export const getServerSideProps = async (ctx) => {
+
+  const data = await customAxios(`${server}/api/stories`, ctx, `${server}/login`);
+
+  return {
+    props: {
+      stories: data.data
+    }
+  };
 }
