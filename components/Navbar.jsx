@@ -1,21 +1,71 @@
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import AuthContext from '../context/auth/authContext'
+import { useContext } from 'react'
+import { server } from '../src/server'
+import axios from 'axios'
+import Router from 'next/router'
+
+const guestLinks = <Fragment>
+    <li>
+        <Link href='/login'>
+            <a>
+                Login
+        </a>
+        </Link>
+    </li>
+    <li>
+        <Link href='/register'>
+            <a>
+                Register
+         </a>
+        </Link>
+    </li>
+</Fragment>
+
 
 const Navbar = () => {
 
-    const guestLinks = <Fragment>
+    const [isAuth, setAuth] = useState(false);
+
+    const { isAuthenticated } = useContext(AuthContext);
+
+    useEffect(() => {
+        const query = localStorage.getItem('isAuthenticated');
+        if (query) {
+            setAuth(query);
+        }
+    }, [isAuthenticated]);
+
+    const onLogout = async e => {
+        try {
+            const res = await axios.get(`${server}/api/logout`);
+            localStorage.removeItem('isAuthenticated');
+            setAuth(false);
+            M.toast({ html: res.data.msg });
+            Router.replace('/login');
+        } catch (err) {
+            console.error(err);
+            if (err.response) {
+                M.toast({ html: err.response.error });
+            }
+        }
+    }
+
+
+    const authLinks = <Fragment>
         <li>
-            <Link href='/login'>
+            <Link href='/'>
                 <a>
-                    Login
+                    Home
                 </a>
             </Link>
         </li>
         <li>
-            <Link href='/register'>
-                <a>
-                    Register
-                 </a>
+            <Link href='#!'>
+                <a onClick={onLogout}>
+                    Logout
+                </a>
             </Link>
         </li>
     </Fragment>
@@ -30,7 +80,7 @@ const Navbar = () => {
                         </a>
                     </Link>
                     <ul className="right">
-                        {guestLinks}
+                        {isAuth ? authLinks : guestLinks}
                         <li className='hide-on-med-and-down'>
                             <Link href='/about'>
                                 <a>
@@ -45,4 +95,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;

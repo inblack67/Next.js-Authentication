@@ -9,4 +9,4 @@ function MyApp({ Component, pageProps }) {
   </AuthState>
 }
 
-export default MyApp
+export default MyApp;
