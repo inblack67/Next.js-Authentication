@@ -47,7 +47,7 @@ const Navbar = () => {
         } catch (err) {
             console.error(err);
             if (err.response) {
-                M.toast({ html: err.response.error });
+                M.toast({ html: err.response.data.error });
             }
         }
     }
@@ -55,9 +55,9 @@ const Navbar = () => {
 
     const authLinks = <Fragment>
         <li>
-            <Link href='/'>
+            <Link href='/add-story'>
                 <a>
-                    Home
+                    Add Story
                 </a>
             </Link>
         </li>

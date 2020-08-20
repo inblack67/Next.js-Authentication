@@ -1,11 +1,20 @@
 import { server } from '../src/server';
-import customAxios from '../src/customAxios'
+import customAxios from '../src/customAxios';
+import Link from 'next/link';
 
 export default function Home({ stories }) {
   return (
     <div className='container'>
       <h3>Stories</h3>
-      { JSON.stringify(stories, null, 3)}
+      <ul className="collection">
+        {stories.map(story => <li className='collection-item' key={story._id}>
+          <Link as={`/story/${story._id}`} href='/story/[id]'>
+            <a>
+              {story.title}
+            </a>
+          </Link>
+        </li>)}
+      </ul>
     </div>
   )
 }
@@ -21,6 +30,7 @@ export const getServerSideProps = async (ctx) => {
         }
       };
     }
+    return { props: {} };
   } catch (err) {
     console.error(err);
     return {
