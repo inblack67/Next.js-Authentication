@@ -5,7 +5,7 @@ const handleErrors = fn => async (req, res) => {
     try {
         return await fn(req, res);
     } catch (err) {
-        
+
         let error = { ...err };
         error.message = err.message;
 
@@ -15,13 +15,13 @@ const handleErrors = fn => async (req, res) => {
         }
 
         // mongoose duplicate key
-        if (err.code === 11000) {
+        else if (err.code === 11000) {
             const message = `Resource already exists`;
-            error = new ErrorResponse(message, 400);
+            error = new ErrorResponse(message, 400)
         }
 
         // validation error
-        if (err.name === 'ValidationError') {
+        else if (err.name === 'ValidationError') {
             const message = Object.values(err.errors).map(value => value.message);
             error = new ErrorResponse(message, 400);
         }

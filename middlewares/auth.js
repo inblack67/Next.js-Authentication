@@ -25,5 +25,7 @@ export const protect = fn => ErrorHandler(
         const decoded = verify(token, process.env.JWT_SECRET);
 
         req.user = await User.findById(decoded.id);
+
+        return await fn(req, res);
     }
 );
